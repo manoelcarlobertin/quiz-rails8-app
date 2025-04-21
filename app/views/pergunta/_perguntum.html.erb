@@ -1,12 +1,30 @@
-<div id="<%= dom_id perguntum %>">
-  <p>
-    <strong>Enunciado:</strong>
-    <%= perguntum.enunciado %>
-  </p>
+<div id="<%= dom_id perguntum %>" class="card mb-3">
+  <div class="card-body">
+    <h5 class="card-title">Pergunta</h5>
+    <p class="card-text">
+      <%= perguntum.enunciado %>
+    </p>
 
-  <p>
-    <strong>Quiz:</strong>
-    <%= perguntum.quiz_id %>
-  </p>
+    <div class="mt-4">
+      <h6 class="mb-3">Respostas:</h6>
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <tbody>
+            <% perguntum.respostas.each do |resposta| %>
+              <tr class="align-middle">
+                <td>
+                  <i class="<%= resposta.correta? ? 'bi bi-check-circle-fill text-success' : 'bi bi-circle' %>"></i>
+                  <%= resposta.texto %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
 
+    <div class="mt-3 text-muted">
+      <small>Quiz ID: <%= perguntum.quiz_id %></small>
+    </div>
+  </div>
 </div>

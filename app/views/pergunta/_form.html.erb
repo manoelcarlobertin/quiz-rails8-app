@@ -1,8 +1,9 @@
-<%= form_with(model: perguntum) do |form| %>
-  <% if perguntum.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(perguntum.errors.count, "error") %> prohibited this perguntum from being saved:</h2>
+<%= simple_form_for @perguntum, html: { class: 'form-windows' } do |form| %>
+  <h1 class="text-primary mb-4">Nova Pergunta</h1>
 
+  <% if perguntum.errors.any? %>
+    <div class="alert alert-danger">
+      <h2><%= pluralize(perguntum.errors.count, "erro") %> impediu que esta pergunta fosse salva:</h2>
       <ul>
         <% perguntum.errors.each do |error| %>
           <li><%= error.full_message %></li>
@@ -11,17 +12,37 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :enunciado, style: "display: block" %>
-    <%= form.text_field :enunciado %>
+  <div class="form-group mb-3">
+    <%= form.input :enunciado, label: 'Enunciado da Pergunta', input_html: { class: 'form-control' } %>
   </div>
 
-  <div>
-    <%= form.label :quiz_id, style: "display: block" %>
-    <%= form.text_field :quiz_id %>
+  <div class="form-group mb-3">
+    <%= form.association :quiz, label: 'Quiz', input_html: { class: 'form-control' } %>
   </div>
 
-  <div>
-    <%= form.submit %>
+  <div class="card mb-4">
+    <div class="card-header">
+      <h5>Opções de Resposta</h5>
+    </div>
+    <div class="card-body">
+      <%= form.simple_fields_for :respostas do |resposta_form| %>
+        <% [1, 2, 3, 4].each do |numero| %>
+          <div class="form-group mb-3">
+            <div class="d-flex align-items-center">
+              <%= radio_button_tag 'resposta_correta', numero, false, class: 'me-2' %>
+              <%= resposta_form.input "opcao_#{numero}",
+                  label: "Opção #{numero}",
+                  input_html: { class: 'form-control' },
+                  wrapper_html: { class: 'flex-grow-1' } %>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= form.button :submit, 'Salvar', class: 'btn btn-primary me-2' %>
+    <%= link_to 'Cancelar', perguntas_path, class: 'btn btn-secondary' %>
   </div>
 <% end %>

@@ -1,11 +1,16 @@
-<% content_for :title, "New perguntum" %>
+<%# Content for the page title %>
+<% content_for :title, "Nova Pergunta" %>
 
-<h1>New perguntum</h1>
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-12">
+      <h1 class="mb-4">Nova Pergunta</h1>
 
-<%= render "form", perguntum: @perguntum %>
+      <%= render "form", perguntum: @perguntum %>
 
-<br>
-
-<div>
-  <%= link_to "Back to pergunta", pergunta_path %>
+      <div class="mt-3">
+        <%= link_to "Voltar para Perguntas", pergunta_path, class: "btn btn-secondary" %>
+      </div>
+    </div>
+  </div>
 </div>
