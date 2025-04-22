@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :quizzes do
-    resources :questions do
+    resources :questions, shallow: true do
       resources :answers
     end
     member do
