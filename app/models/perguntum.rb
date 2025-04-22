@@ -4,11 +4,6 @@ class Perguntum < ApplicationRecord
   validates :question_type, presence: true
   validates :content, presence: true
 
-  enum question_type: {
-    multiple_choice: 0,
-    true_false: 1
-  }
-
-  has_many :alternatives, dependent: :destroy
-  accepts_nested_attributes_for :alternatives, allow_destroy: true
+  has_many has_many: respostums, dependent: :destroy
+  accepts_nested_attributes_for :respostums, allow_destroy: true
 end
